@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+// import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +25,8 @@ import com.weather4u.repository.LocationRepository;
 import com.weather4u.repository.WeatherDataRepository;
 import com.weather4u.repository.FeedbackRepository;
 
+import com.weather4u.service.WeatherDataService;
+
 @RestController
 @RequestMapping("/weather4u")
 public class Weather4uController {
@@ -32,6 +34,7 @@ public class Weather4uController {
 	@Autowired private LocationRepository locationRepository;
 	@Autowired private WeatherDataRepository weatherDataRepository;
 	@Autowired private FeedbackRepository feedbackRepository;
+	@Autowired private WeatherDataService weatherDataService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(Weather4uController.class);
 	
@@ -69,9 +72,9 @@ public class Weather4uController {
 			logger.info("Weather database is empty, initializing..");
 			LocalDate currentDate = LocalDate.now();
 
-	        WeatherData weatherData1 = new WeatherData(currentDate, location1, 25.5, 70.0, 12.3, "NE", "Sunny");
-	        WeatherData weatherData2 = new WeatherData(currentDate, location2, 22.0, 65.5, 10.0, "W", "Cloudy");
-	        WeatherData weatherData3 = new WeatherData(currentDate, location3, 28.0, 80.0, 15.5, "SE", "Partly cloudy");
+	        WeatherData weatherData1 = new WeatherData(currentDate, location1, 25.5, 70.0, 12.3, 29.00, "Sunny");
+	        WeatherData weatherData2 = new WeatherData(currentDate, location2, 22.0, 65.5, 10.0, 12.23, "Cloudy");
+	        WeatherData weatherData3 = new WeatherData(currentDate, location3, 28.0, 80.0, 15.5, 12.00, "Partly cloudy");
 
 			weatherDataRepository.save(weatherData1);
 			weatherDataRepository.save(weatherData2);
@@ -160,7 +163,7 @@ public class Weather4uController {
 	    return weather;
 	} */
 	
-	
+	/*
 	@GetMapping("/weatherData/country/{country}/city/{city}")
 	public WeatherData getWeatherByCityAndCountry(@PathVariable String country, @PathVariable String city, @RequestParam LocalDate date) {
 	    Location location = locationRepository.findByCountryAndCity(country, city);
@@ -171,8 +174,9 @@ public class Weather4uController {
 	        logger.info("Location is not valid");
 	        return null;
 	    }
-	}
+	} */
 
+	/* 
 	@GetMapping("/weatherData/lat/{latitude}/lon/{longitude}")
 	public WeatherData getWeatherByLatAndLon(@PathVariable Double latitude, @PathVariable Double longitude, @RequestParam LocalDate date) {
 	    Location location = locationRepository.findByLatitudeAndLongitude(latitude, longitude);
@@ -183,7 +187,23 @@ public class Weather4uController {
 	        logger.info("Location is not valid");
 	        return null;
 	    }
+	} */
+	@GetMapping("/weatherData/country/{country}/city/{city}")
+	public WeatherData getWeatherByCityAndCountry(@PathVariable String country, @PathVariable String city, @RequestParam LocalDate date) {
+		return weatherDataService.getWeatherByCityAndCountry(country, city, date);
 	}
+	
+	@GetMapping("/weatherData/lat/{latitude}/lon/{longitude}")
+	public WeatherData getWeatherByLatAndLon(@PathVariable Double latitude, @PathVariable Double longitude, @RequestParam LocalDate date) {
+	    return weatherDataService.getWeatherByLatAndLonAndDate(latitude, longitude, date);
+	}
+	
+	/*
+	@GetMapping("/weatherData/forecast/country/{country}/city/{city}")
+	public List<WeatherData> getForecastByCityAndCountry(@PathVariable String country, @PathVariable String city) {
+		return weatherDataService.getForecastByCityAndCountry(country, city);
+	} */
+	
 	
 	/*
 	@GetMapping("/weatherData/LocationId")

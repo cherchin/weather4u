@@ -11,18 +11,17 @@ import java.util.Objects;
 @Data
 @Document
 public class WeatherData {
-    @Id
-    private String id;
+    // @Id
+    // private String id;
     private LocalDate date;
     private Double temperature;
     private Double humidity;
     private Double windSpeed;
-    private String windDirection;
+    private Double windDirection;
     private String description;
     
     @DBRef
     public Location location;
-    
     
     private String city;
     private String country;
@@ -34,7 +33,19 @@ public class WeatherData {
         // Default constructor
     }
     
-    
+	public WeatherData(LocalDate date, Double temperature, Double humidity, Double windSpeed, Double windDirection,
+			String description) {
+		super();
+		this.date = date;
+		this.temperature = temperature;
+		this.humidity = humidity;
+		this.windSpeed = windSpeed;
+		this.windDirection = windDirection;
+		this.description = description;
+	}
+
+
+
 	public WeatherData(LocalDate date, Location location) {
 		super();
 		this.date = date;
@@ -46,7 +57,7 @@ public class WeatherData {
 	}
 
 	public WeatherData(LocalDate date, Location location, Double temperature, Double humidity, Double windSpeed,
-			String windDirection, String description) {
+			Double windDirection, String description) {
 		super();
 		this.date = date;
 		this.location = location;
@@ -57,13 +68,14 @@ public class WeatherData {
 		this.description = description;
 	}
 
+	/*
 	public String getId() {
 		return id;
 	}
 
 	public void setId(String id) {
 		this.id = id;
-	}
+	} */
 
 	public LocalDate getDate() {
 		return date;
@@ -97,11 +109,11 @@ public class WeatherData {
 		this.windSpeed = windSpeed;
 	}
 
-	public String getWindDirection() {
+	public Double getWindDirection() {
 		return windDirection;
 	}
 
-	public void setWindDirection(String windDirection) {
+	public void setWindDirection(Double windDirection) {
 		this.windDirection = windDirection;
 	}
 
@@ -123,7 +135,7 @@ public class WeatherData {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(date, description, humidity, id, location, temperature, windDirection, windSpeed);
+		return Objects.hash(date, description, humidity, location, temperature, windDirection, windSpeed);
 	}
 
 	@Override
@@ -136,14 +148,14 @@ public class WeatherData {
 			return false;
 		WeatherData other = (WeatherData) obj;
 		return Objects.equals(date, other.date) && Objects.equals(description, other.description)
-				&& Objects.equals(humidity, other.humidity) && Objects.equals(id, other.id)
+				&& Objects.equals(humidity, other.humidity) 
 				&& Objects.equals(location, other.location) && Objects.equals(temperature, other.temperature)
 				&& Objects.equals(windDirection, other.windDirection) && Objects.equals(windSpeed, other.windSpeed);
 	}
 
 	@Override
 	public String toString() {
-		return "WeatherData [id=" + id + ", date=" + date + ", location=" + location + "]";
+		return "WeatherData [date=" + date + ", location=" + location + "]";
 	}
 	
 }
