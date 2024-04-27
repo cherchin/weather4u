@@ -17,7 +17,7 @@ public class WeatherData {
     private Double temperature;
     private Double humidity;
     private Double windSpeed;
-    private Double windDirection;
+    private String windDirection;
     private String description;
     
     @DBRef
@@ -33,7 +33,7 @@ public class WeatherData {
         // Default constructor
     }
     
-	public WeatherData(LocalDate date, Double temperature, Double humidity, Double windSpeed, Double windDirection,
+	public WeatherData(LocalDate date, Double temperature, Double humidity, Double windSpeed, String windDirection,
 			String description) {
 		super();
 		this.date = date;
@@ -57,7 +57,7 @@ public class WeatherData {
 	}
 
 	public WeatherData(LocalDate date, Location location, Double temperature, Double humidity, Double windSpeed,
-			Double windDirection, String description) {
+			String windDirection, String description) {
 		super();
 		this.date = date;
 		this.location = location;
@@ -109,11 +109,11 @@ public class WeatherData {
 		this.windSpeed = windSpeed;
 	}
 
-	public Double getWindDirection() {
+	public String getWindDirection() {
 		return windDirection;
 	}
 
-	public void setWindDirection(Double windDirection) {
+	public void setWindDirection(String windDirection) {
 		this.windDirection = windDirection;
 	}
 

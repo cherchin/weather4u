@@ -72,9 +72,9 @@ public class Weather4uController {
 			logger.info("Weather database is empty, initializing..");
 			LocalDate currentDate = LocalDate.now();
 
-	        WeatherData weatherData1 = new WeatherData(currentDate, location1, 25.5, 70.0, 12.3, 29.00, "Sunny");
-	        WeatherData weatherData2 = new WeatherData(currentDate, location2, 22.0, 65.5, 10.0, 12.23, "Cloudy");
-	        WeatherData weatherData3 = new WeatherData(currentDate, location3, 28.0, 80.0, 15.5, 12.00, "Partly cloudy");
+	        WeatherData weatherData1 = new WeatherData(currentDate, location1, 25.5, 70.0, 12.3, "NE", "Sunny");
+	        WeatherData weatherData2 = new WeatherData(currentDate, location2, 22.0, 65.5, 10.0, "NW", "Cloudy");
+	        WeatherData weatherData3 = new WeatherData(currentDate, location3, 28.0, 80.0, 15.5, "S", "Partly cloudy");
 
 			weatherDataRepository.save(weatherData1);
 			weatherDataRepository.save(weatherData2);
@@ -140,6 +140,7 @@ public class Weather4uController {
 		return feedbackSaved;
 	}
 	
+	/* 
 	@GetMapping("/location")
 	public List<Location> location(){
 		
@@ -153,6 +154,7 @@ public class Weather4uController {
 		return weatherDataRepository.findAll();
 	
 	}
+	*/
 	
 	/* 
 	@GetMapping("/weatherData/{Location}")
@@ -188,6 +190,8 @@ public class Weather4uController {
 	        return null;
 	    }
 	} */
+	
+	/* should edit this such that it is forecast instead */
 	@GetMapping("/weatherData/country/{country}/city/{city}")
 	public WeatherData getWeatherByCityAndCountry(@PathVariable String country, @PathVariable String city, @RequestParam LocalDate date) {
 		return weatherDataService.getWeatherByCityAndCountry(country, city, date);
@@ -221,12 +225,11 @@ public class Weather4uController {
 	
 	} */
 	
+	/*
 	@PostMapping("/weatherData/save")
 	public WeatherData saveWeatherData(@RequestBody WeatherData weatherData) {
 		
 		WeatherData weatherDataSaved = weatherDataRepository.save(weatherData);
 		return weatherDataSaved;
-	}
-		
-	
+	} */
 }

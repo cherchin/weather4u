@@ -49,10 +49,17 @@ public class WeatherDataService {
         if (responseNode != null) {
             WeatherData weatherData = new WeatherData();
         	weatherData.setDate(date);
-            weatherData.setTemperature(responseNode.get("main").get("temp").asDouble());
+        	// convert temperature from Kelvin to Celsius
+        	double temperatureCelsius = responseNode.get("main").get("temp").asDouble() - 273.15;
+            weatherData.setTemperature(temperatureCelsius);
+            // weatherData.setTemperature(responseNode.get("main").get("temp").asDouble());
             weatherData.setHumidity(responseNode.get("main").get("humidity").asDouble());
             weatherData.setWindSpeed(responseNode.get("wind").get("speed").asDouble());
-            weatherData.setWindDirection(responseNode.get("wind").get("deg").asDouble());
+            // convert wind direction from degrees to cardinal direction
+            double windDirectionDegrees = responseNode.get("wind").get("deg").asDouble();
+            String windDirection = degreesToCardinal(windDirectionDegrees);
+            weatherData.setWindDirection(windDirection);
+            // weatherData.setWindDirection(responseNode.get("wind").get("deg").asDouble());
             weatherData.setDescription(responseNode.get("weather").get(0).get("description").asText());
             return weatherData;
         } else {
@@ -86,10 +93,17 @@ public class WeatherDataService {
 	    if (responseNode != null) {
 	        WeatherData weatherData = new WeatherData();
 	    	weatherData.setDate(date);
-	        weatherData.setTemperature(responseNode.get("main").get("temp").asDouble());
+	    	// convert temperature from Kelvin to Celsius
+        	double temperatureCelsius = responseNode.get("main").get("temp").asDouble() - 273.15;
+            weatherData.setTemperature(temperatureCelsius);
+	        // weatherData.setTemperature(responseNode.get("main").get("temp").asDouble());
 	        weatherData.setHumidity(responseNode.get("main").get("humidity").asDouble());
 	        weatherData.setWindSpeed(responseNode.get("wind").get("speed").asDouble());
-	        weatherData.setWindDirection(responseNode.get("wind").get("deg").asDouble());
+	        // convert wind direction from degrees to cardinal direction
+	        double windDirectionDegrees = responseNode.get("wind").get("deg").asDouble();
+	        String windDirection = degreesToCardinal(windDirectionDegrees);
+	        weatherData.setWindDirection(windDirection);
+	        // weatherData.setWindDirection(responseNode.get("wind").get("deg").asDouble());
 	        weatherData.setDescription(responseNode.get("weather").get(0).get("description").asText());
 	        return weatherData;
 	    } else {
@@ -104,4 +118,12 @@ public class WeatherDataService {
 	    String apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "," + country
 	        	+ "&appid=" + apiKey;
 	} */
+    
+    // converting wind direction from degrees to cardinal direction
+    private String degreesToCardinal(double degrees) {
+        String[] directions = {"N", "NE", "E", "SE", "S", "SW", "W", "NW"};
+        int index = (int) Math.round((degrees % 360) / 45);
+        return directions[index % 8];
+    }
+
 }
