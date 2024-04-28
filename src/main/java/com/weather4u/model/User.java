@@ -6,7 +6,7 @@ import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DBRef;
+// import org.springframework.data.mongodb.core.mapping.DBRef;
 
 @Data
 @Document(collection = "users")
@@ -15,9 +15,11 @@ public class User {
     private String id;
     private String email;
     private String password;
+    private Double latitude;
+    private Double longitude;
     
-    @DBRef
-    private Location location;
+    // @DBRef
+    // private Location location;
     
     public User() {
         // Default constructor
@@ -28,12 +30,35 @@ public class User {
 		this.email = email;
 		this.password = password;
 	} 
-    
-	public User(String email, String password, Location location) {
+
+	public User(Double latitude, Double longitude) {
+		super();
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+
+	public User(String email, String password, Double latitude, Double longitude) {
 		super();
 		this.email = email;
 		this.password = password;
-		this.location = location;
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
 	}
 
 	public String getId() {
@@ -60,17 +85,9 @@ public class User {
 		this.password = password;
 	}
 
-	public Location getLocation() {
-		return location;
-	}
-
-	public void setLocation(Location location) {
-		this.location = location;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, id, location, password);
+		return Objects.hash(email, id, password, latitude, longitude);
 	}
 
 	@Override
@@ -83,12 +100,13 @@ public class User {
 			return false;
 		User other = (User) obj;
 		return Objects.equals(email, other.email) && Objects.equals(id, other.id)
-				&& Objects.equals(location, other.location) && Objects.equals(password, other.password);
+				&& Objects.equals(password, other.password);
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", password=" + password + ", location=" + location + "]";
+		return "User [email=" + email + ", password=" + password + ", latitude=" + latitude + ", longitude=" + longitude
+				+ "]";
 	}  
 	
 	

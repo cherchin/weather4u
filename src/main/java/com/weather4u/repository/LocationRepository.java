@@ -1,4 +1,4 @@
-package com.weather4u.repository;
+/* package com.weather4u.repository;
 
 import java.util.List;
 
@@ -11,3 +11,4 @@ public interface LocationRepository extends MongoRepository<Location, String> {
     Location findByCountryAndCity(String Country, String City);
     Location findByLatitudeAndLongitude(Double Lat, Double Lon);
 }
+*/

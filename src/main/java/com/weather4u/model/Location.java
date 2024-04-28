@@ -1,4 +1,4 @@
-package com.weather4u.model;
+/* package com.weather4u.model;
 
 import lombok.Data;
 
@@ -107,4 +107,4 @@ public class Location {
 	}  
 	
 	
-}
+} */

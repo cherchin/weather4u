@@ -1,8 +1,8 @@
 package com.weather4u.model;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
+// import org.springframework.data.annotation.Id;
+// import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
@@ -20,6 +20,7 @@ public class WeatherData {
     private String windDirection;
     private String description;
     
+    /*
     @DBRef
     public Location location;
     
@@ -27,6 +28,7 @@ public class WeatherData {
     private String country;
     private Double latitude;
     private Double longitude;
+    */
     
     
     public WeatherData() {
@@ -44,8 +46,7 @@ public class WeatherData {
 		this.description = description;
 	}
 
-
-
+	/* 
 	public WeatherData(LocalDate date, Location location) {
 		super();
 		this.date = date;
@@ -55,18 +56,7 @@ public class WeatherData {
 		this.latitude = location != null ? location.getLatitude() : -1.00;
 		this.longitude = location != null ? location.getLongitude() : -1.00;
 	}
-
-	public WeatherData(LocalDate date, Location location, Double temperature, Double humidity, Double windSpeed,
-			String windDirection, String description) {
-		super();
-		this.date = date;
-		this.location = location;
-		this.temperature = temperature;
-		this.humidity = humidity;
-		this.windSpeed = windSpeed;
-		this.windDirection = windDirection;
-		this.description = description;
-	}
+	*/
 
 	/*
 	public String getId() {
@@ -125,17 +115,9 @@ public class WeatherData {
 		this.description = description;
 	}
 
-	public Location getLocation() {
-		return location;
-	}
-
-	public void setLocation(Location location) {
-		this.location = location;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(date, description, humidity, location, temperature, windDirection, windSpeed);
+		return Objects.hash(date, description, humidity, temperature, windDirection, windSpeed);
 	}
 
 	@Override
@@ -148,14 +130,13 @@ public class WeatherData {
 			return false;
 		WeatherData other = (WeatherData) obj;
 		return Objects.equals(date, other.date) && Objects.equals(description, other.description)
-				&& Objects.equals(humidity, other.humidity) 
-				&& Objects.equals(location, other.location) && Objects.equals(temperature, other.temperature)
+				&& Objects.equals(humidity, other.humidity) && Objects.equals(temperature, other.temperature)
 				&& Objects.equals(windDirection, other.windDirection) && Objects.equals(windSpeed, other.windSpeed);
 	}
 
 	@Override
 	public String toString() {
-		return "WeatherData [date=" + date + ", location=" + location + "]";
+		return "WeatherData [date=" + date + ", temperature=" + temperature + "]";
 	}
 	
 }
