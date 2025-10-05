@@ -24,7 +24,7 @@ public class WeatherDataService {
 	private static final Logger logger = LoggerFactory.getLogger(Weather4uController.class);
 
 	// @Value("${openweathermap.apiKey}")
-    private String apiKey="724d34e6b4a219810195947366971379";
+    private String apiKey="<insert API key here>";
 
     public WeatherData getWeatherByLatAndLonAndDate(Double latitude, Double longitude, LocalDate date) { //throws JsonMappingException, JsonProcessingException {
         String apiUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude 
